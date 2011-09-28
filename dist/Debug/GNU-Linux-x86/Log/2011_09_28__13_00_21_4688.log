@@ -1,0 +1,25 @@
+1317207621965650	INFO      	Log	XnLog.cpp	264	OpenNI version is 1.3.2 (Build 1)-Linux-x86 (Sep 26 2011 14:50:28)
+1317207621965680	INFO      	Log	XnLog.cpp	243	Filter Info - minimum severity: ERROR, masks: NONE
+1317207621965689	INFO      	Log	XnLog.cpp	243	Filter Info - minimum severity: WARNING, masks: NONE
+1317207621965699	INFO      	Log	XnLog.cpp	243	Filter Info - minimum severity: WARNING, masks: ALL
+      370	WARNING   	xnOS	Linux-x86SharedLibs.cpp	44	Failed loading lib: ../lib/libnimMockNodes.so: no se puede abrir el fichero del objeto compartido: No existe el fichero o el directorio
+
+      387	WARNING   	ModuleLoader	XnModuleLoader.cpp	330	Failed to load '../lib/libnimMockNodes.so' - missing dependencies?
+      424	WARNING   	xnOS	Linux-x86SharedLibs.cpp	44	Failed loading lib: ../lib/libnimCodecs.so: no se puede abrir el fichero del objeto compartido: No existe el fichero o el directorio
+
+      430	WARNING   	ModuleLoader	XnModuleLoader.cpp	330	Failed to load '../lib/libnimCodecs.so' - missing dependencies?
+      460	WARNING   	xnOS	Linux-x86SharedLibs.cpp	44	Failed loading lib: ../lib/libnimRecorder.so: no se puede abrir el fichero del objeto compartido: No existe el fichero o el directorio
+
+      466	WARNING   	ModuleLoader	XnModuleLoader.cpp	330	Failed to load '../lib/libnimRecorder.so' - missing dependencies?
+      495	WARNING   	xnOS	Linux-x86SharedLibs.cpp	44	Failed loading lib: ../lib/libXnDevicesSensorV2.so: no se puede abrir el fichero del objeto compartido: No existe el fichero o el directorio
+
+      501	WARNING   	ModuleLoader	XnModuleLoader.cpp	330	Failed to load '../lib/libXnDevicesSensorV2.so' - missing dependencies?
+      532	WARNING   	xnOS	Linux-x86SharedLibs.cpp	44	Failed loading lib: ../lib/libXnDeviceFile.so: no se puede abrir el fichero del objeto compartido: No existe el fichero o el directorio
+
+      538	WARNING   	ModuleLoader	XnModuleLoader.cpp	330	Failed to load '../lib/libXnDeviceFile.so' - missing dependencies?
+      569	WARNING   	xnOS	Linux-x86SharedLibs.cpp	44	Failed loading lib: ../lib/libXnVFeatures.so: no se puede abrir el fichero del objeto compartido: No existe el fichero o el directorio
+
+      576	WARNING   	ModuleLoader	XnModuleLoader.cpp	330	Failed to load '../lib/libXnVFeatures.so' - missing dependencies?
+      605	WARNING   	xnOS	Linux-x86SharedLibs.cpp	44	Failed loading lib: ../lib/libXnVHandGenerator.so: no se puede abrir el fichero del objeto compartido: No existe el fichero o el directorio
+
+      611	WARNING   	ModuleLoader	XnModuleLoader.cpp	330	Failed to load '../lib/libXnVHandGenerator.so' - missing dependencies?
