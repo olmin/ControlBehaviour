@@ -70,12 +70,8 @@ int main(int argc, char **argv)
 
      //Init vars
     Behaviour behaviour;
-    behaviour.initialize("name");
-    
+    bool first=true;   
     int count=0;
-    cv::Point3f left_knee, left_ankle, left_hip;
-    cv::Point3f right_hand;
-    boolean first_time=true;
     char last_c = 0;    
     
     
@@ -110,8 +106,11 @@ int main(int argc, char **argv)
       
         Point3f iniPoint=Point3f(0,0,0);
         
-        if (image.skeleton() && (image.skeleton()->getJoint(image.skeleton()->NTK_SKEL_TORSO)!= iniPoint)){//tracking user                       
-             
+        if (image.skeleton() && (image.skeleton()->getJoint(image.skeleton()->NTK_SKEL_TORSO)!= iniPoint)){//tracking user                   
+            if(first){
+                 behaviour.initialize("name");
+                 first=false;
+            } 
             count++;
             if(count==behaviour.getFPS()){                
                 //saving the data of the actual position

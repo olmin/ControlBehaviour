@@ -14,12 +14,17 @@
 #include <string>
 #include <ntk/gesture/skeleton.h>
 
+/*! Number of joints angles. */
+#define Num_Angles 11
+ /*! Frequency of samples to be saved. Every FPS of the total frames gotten will be saved */
+#define FPS 2
+
 using namespace std;
 using namespace cv;
 using namespace ntk;
 
-/*! Number of joints angles. */
-enum { Num_Angles = 11};
+
+//enum { Num_Angles = 11};
 
   
 class SimpleSkeleton{
@@ -37,8 +42,7 @@ class Behaviour{
     /*! Behaviour total duraion in seconds. */
     enum { BehaviourDuration = 2*60 };//2 minutes
 
-    /*! Frequency of samples per second. */
-    enum { FPS = 15 };//15 fps
+    //    enum { FPS = 3 };//15 fps
           
 public:
     string name;

@@ -70,17 +70,17 @@
     simpleSkeleton.angles[9] = calcAngle(left_shoulder, right_shoulder, torso, neck); //angle of rotation of the shoulders
     simpleSkeleton.angles[10] = calcAngle(left_hip, right_hip, torso, neck); //angle of rotation of the hip
 
-       
-    printf ("----Left arm: %f------\n", simpleSkeleton.angles[2]);
-     printf ("----Right arm: %f------\n", simpleSkeleton.angles[6]);
+//       
+//    printf ("----Left arm: %f------\n", simpleSkeleton.angles[2]);
+//     printf ("----Right arm: %f------\n", simpleSkeleton.angles[6]);
     
     this->positions[this->count++] = simpleSkeleton;
 
-    printf("----End Save Data Skeleton, Pos 3d: %f, %f, %f------\n",
-            this->positions[this->count - 1].pos3D.x,
-            this->positions[this->count - 1].pos3D.y,
-            this->positions[this->count - 1].pos3D.z
-            );
+//    printf("----End Save Data Skeleton, Pos 3d: %f, %f, %f------\n",
+//            this->positions[this->count - 1].pos3D.x,
+//            this->positions[this->count - 1].pos3D.y,
+//            this->positions[this->count - 1].pos3D.z
+//            );
   }
   
   /*! Ends the behaviour and saves all its data into the database*/
