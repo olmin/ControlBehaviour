@@ -32,6 +32,7 @@
       <itemPath>FindNestk.cmake</itemPath>
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>README</itemPath>
     <itemPath>debug.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
