@@ -79,6 +79,7 @@ MySQLConnector::MySQLConnector(const MySQLConnector& orig) {
 MySQLConnector::~MySQLConnector() {
 }
 
+/*!Returns the next unique id to be inserted in the db's row*/
 static int getNextId(Connection *con){
     ResultSet *res;
     Statement *stmt;      
@@ -104,25 +105,18 @@ void MySQLConnector::save(Behaviour *behaviour) {
 
     int updatecount = 0;
     char dateBuffer [22];
-    timeval time;
     
-    /* initiate url, user, password and database variables */
-    string url(DBHOST);
-    const string user(USER);
-    const string password(PASSWORD);
-    const string database(DATABASE);
-
     try {
         /* create a database connection using the Driver */
-        con = driver -> connect(url, user, password);
+        con = driver -> connect(DBHOST, USER, PASSWORD);
         
         /* select appropriate database schema */
-	con -> setSchema(database);
+	con -> setSchema(DATABASE);
         
         int idNewBehaviour= getNextId(con);
 
         /* turn off the autocommit */
-        con -> setAutoCommit(0);   
+        con -> setAutoCommit(false);          
         cout << "\t Autocommit false .." << endl;             
         
         cout << "\tCreating a save point \"SAVEPT1\" .." << endl;

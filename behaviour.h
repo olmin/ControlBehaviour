@@ -16,15 +16,33 @@
 
 /*! Number of joints angles. */
 #define Num_Angles 11
- /*! Frequency of samples to be saved. Every FPS of the total frames gotten will be saved */
-#define FPS 2
+ /*! Frames per second */
+#define FPS 30
+/*!Number of Actions*/
+#define NumActions 15
 
 using namespace std;
 using namespace cv;
 using namespace ntk;
 
-
-//enum { Num_Angles = 11};
+/*!List of actions that can be done*/
+ static const string listActions[NumActions] =  {
+    "nothing",
+    "check watch",
+    "cross arms",
+    "scratch head",
+    "sit down",
+    "get up",
+    "turn around",
+    "walk",
+    "wave",
+    "punch",
+    "kick",
+    "point",
+    "pick up",
+    "throw (over head)",
+    "throw (from bottom up)"
+ };
 
   
 class SimpleSkeleton{
@@ -39,32 +57,41 @@ public:
 
 class Behaviour{
     
+private:
+   
     /*! Behaviour total duraion in seconds. */
-    enum { BehaviourDuration = 2*60 };//2 minutes
+   enum{BehaviourMaxDuration= 2*60 };//2 minutes
 
-    //    enum { FPS = 3 };//15 fps
+   /*!Specific duration of the behaviour*/
+   int specificDuration;
           
 public:
     string name;
     time_t dateIni;
     time_t dateEnd;
     int count;
-    SimpleSkeleton positions[BehaviourDuration*FPS];
+    SimpleSkeleton positions[BehaviourMaxDuration*FPS];
 
   /*! Deep copy the Behaviour data. */
   void copyTo(Behaviour& rhs) const;
   
   /*! Initializes de Behaviour class*/
-  void initialize(const string& behaviourName) ;
+  void initialize() ;
+  
+  /*! To start the behaviour*/
+  void start() ;
   
   /*! Saves the actual skeleton detected into the Behaviour data*/
-  void saveData(Skeleton* skeleton) ;
+  bool saveData(Skeleton* skeleton) ;
   
   /*! Ends the behaviour and saves all its data into the database*/
   void finish() ;
   
   /*!Returns the FPS rate*/
   int getFPS(){return FPS;};
+  
+  /*!Asks through shell to user the behaviour to be recorded*/
+  void getBehaviourName();
   
 private:
    float calcAngle(cv::Point3f p1Ini, cv::Point3f p1End, 

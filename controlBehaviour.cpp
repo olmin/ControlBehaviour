@@ -27,7 +27,7 @@ using namespace ntk;
 
 namespace opt
 {
-ntk::arg<bool> high_resolution("--highres", "High resolution color image.", 1);
+ntk::arg<bool> high_resolution("--highres", "High resolution color image.", 0);
 ntk::arg<int> kinect_id("--kinect-id", "Kinect id", 0);
 }
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     arg_parse(argc, argv);
 
     // Set debug level to 1.
-    ntk::ntk_debug_level = 1;
+    ntk::ntk_debug_level = 0;
 
     // Set current directory to application directory.
     // This is to find Nite config in config/ directory.
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
     // Use mirrored images.
     grabber.setMirrored(true);
-
+    
     // Start the grabber.
     grabber.connectToDevice();
     grabber.start();
@@ -67,14 +67,15 @@ int main(int argc, char **argv)
 
     // Image post processor. Compute mappings when RGB resolution is 1280x1024.
     OpenniRGBDProcessor post_processor;
-
-     //Init vars
+   
+    //Init vars
     Behaviour behaviour;
+    behaviour.initialize();    
     bool first=true;   
     int count=0;
-    char last_c = 0;    
-    
-    
+    bool complete;
+    char last_c = 0;      
+            
     while (true && (last_c != 27))
     {
         // Wait for a new frame, get a local copy and postprocess it.
@@ -82,42 +83,35 @@ int main(int argc, char **argv)
         grabber.copyImageTo(image);
         post_processor.processImage(image);
 
-        // Prepare the depth view, with skeleton and handpoint.
-   //     cv::Mat1b debug_depth_img = normalize_toMat1b(image.depth());
-//        if (image.skeleton())
-//            image.skeleton()->drawOnImage(debug_depth_img);      
-
         // Prepare the color view (mapped to depth frame), with skeleton and handpoint.
         cv::Mat3b debug_color_img;
         image.mappedRgb().copyTo(debug_color_img);
         if (image.skeleton())
             image.skeleton()->drawOnImage(debug_color_img);
 
-        // Prepare the user mask view as colors.
-     //   cv::Mat3b debug_users;
-    //    image.fillRgbFromUserLabels(debug_users);
-    //    if (image.skeleton())
-   //         image.skeleton()->drawOnImage(debug_users);
-              
-     //   imshow("depth", debug_depth_img);
-        imshow("color", debug_color_img);
-    //    imshow("users", debug_users);
-        last_c = (cv::waitKey(10) & 0xff);
-      
-        Point3f iniPoint=Point3f(0,0,0);
         
+        /*****************************CONTROL BEHAVIOUR******************************************************/
+        Point3f iniPoint=Point3f(0,0,0);        
         if (image.skeleton() && (image.skeleton()->getJoint(image.skeleton()->NTK_SKEL_TORSO)!= iniPoint)){//tracking user                   
             if(first){
-                 behaviour.initialize("name");
+                 behaviour.start();
                  first=false;
             } 
-            count++;
-            if(count==behaviour.getFPS()){                
-                //saving the data of the actual position
-                behaviour.saveData(image.skeletonRef());             
-                count=0;
-            }
+   
+               complete= behaviour.saveData(image.skeletonRef());                    
+               if(complete)
+                   break;
+      
         }
+        /*****************************END CONTROL BEHAVIOUR******************************************************/
+        
+        /*shows the image*/
+        imshow("color", debug_color_img);
+ 
+        //waits for escape key
+        last_c = (cv::waitKey(10) & 0xff);      
+        
     }
+    //Once the loop is finished we save the behaviour
     behaviour.finish();
 }
